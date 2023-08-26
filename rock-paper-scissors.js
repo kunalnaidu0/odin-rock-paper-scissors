@@ -4,6 +4,9 @@ solutionMap.set("rock", "scissors");
 solutionMap.set("paper", "rock");
 solutionMap.set("scissors", "paper");
 
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice(){
     /*
     Randomly generates choice between rock, paper and scissors with equal probability
@@ -49,7 +52,7 @@ function game(){
     let computerScore = 0;
 
     // play 5 rounds
-    for ( let i = 0; i < 5; i++){
+    for ( let i = 0; i < 1; i++){
         let playerSelection = prompt("Please Choose Rock, Paper or Scissors.");
         let computerSelection = getComputerChoice();
 
@@ -75,4 +78,60 @@ function game(){
     }
 }
 // initialize game
-game()
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => button.addEventListener('click', playRound));
+
+function playRound(e){
+
+    if (computerScore == 5 || playerScore == 5) restart();
+    
+    let computerSelection = getComputerChoice()
+    let outcome = play(this.textContent, computerSelection);
+
+    console.log(outcome);
+    
+    const playerScoreText = document.querySelector('.player-score.number');
+    const computerScoreText = document.querySelector('.computer-score.number');
+    const winText = document.querySelector('.final-result');
+    const playerChoice = document.querySelector('.player-choice');
+    const computerChoice = document.querySelector('.computer-choice');
+    const roundOutcome = document.querySelector('.outcome');
+
+    playerChoice.textContent = this.textContent;
+    computerChoice.textContent = computerSelection;
+    roundOutcome.textContent = outcome;
+
+    // count score
+    if (outcome == "win"){
+        playerScore++;
+        playerScoreText.textContent = playerScore;
+
+    } 
+    else if (outcome == "loss"){
+        computerScore++;
+        computerScoreText.textContent = computerScore;
+    } 
+
+    // determines who won
+    if (playerScore == 5 || computerScore == 5){
+        if (playerScore == 5){
+            winText.textContent = "Player Wins!! :)";
+        } else{
+            winText.textContent = "Computer Wins :(";
+        } 
+    } 
+    return ;
+}
+
+function restart(){
+    playerScore = 0;
+    computerScore = 0;
+    const playerScoreText = document.querySelector('.player-score.number');
+    const computerScoreText = document.querySelector('.computer-score.number');
+    const winText = document.querySelector('.final-result');
+    playerScoreText.textContent = playerScore;
+    computerScoreText.textContent = computerScore;
+    winText.textContent = "";
+}
+
