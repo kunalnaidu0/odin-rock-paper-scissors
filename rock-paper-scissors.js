@@ -44,39 +44,7 @@ function play(playerSelection, computerSelection){
 
 }
 
-function game(){
-    /*
-    plays a game of 5 rounds of rock paper scissors. Counts score 
-    */
-    let playerScore = 0;
-    let computerScore = 0;
 
-    // play 5 rounds
-    for ( let i = 0; i < 1; i++){
-        let playerSelection = prompt("Please Choose Rock, Paper or Scissors.");
-        let computerSelection = getComputerChoice();
-
-        let outcome = play(playerSelection, computerSelection);
-
-        console.log(outcome);
-        
-        // count score
-        if (outcome == "win") playerScore++;
-        else if (outcome == "loss") computerScore++;
-        
-    }
-
-    console.log(`Player: ${playerScore} \n Computer: ${computerScore}`)
-
-    // determines who won
-    if (playerScore > computerScore){
-        console.log("Player Wins!");
-    } else if (computerScore > playerScore){
-        console.log("Computer Wins!")
-    } else{
-        console.log("Tie!")
-    }
-}
 // initialize game
 const buttons = document.querySelectorAll('button');
 
@@ -85,7 +53,7 @@ buttons.forEach(button => button.addEventListener('click', playRound));
 function playRound(e){
 
     if (computerScore == 5 || playerScore == 5) restart();
-    
+
     let computerSelection = getComputerChoice()
     let outcome = play(this.textContent, computerSelection);
 
